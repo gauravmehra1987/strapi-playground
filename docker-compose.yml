@@ -1,0 +1,45 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    # depends_on:
+    #   - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: walls
+      MYSQL_USER: gaurav
+  strapi:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    command: npm run develop
+    restart: always
+    volumes:
+      - ./api:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "1337:1337"
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: walls
+      MYSQL_USER: gaurav
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: walls
+      MYSQL_USER: gaurav
+      MYSQL_PASSWORD: password

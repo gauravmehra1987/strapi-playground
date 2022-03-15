@@ -14,7 +14,9 @@
     "@strapi/strapi": "4.1.2",
     "@strapi/plugin-users-permissions": "4.1.2",
     "@strapi/plugin-i18n": "4.1.2",
-    "sqlite3": "5.0.2"
+    "sqlite3": "5.0.2",
+    "sails-mysql": "^2.0.0",
+    "mysql": "^2.18.1"
   },
   "author": {
     "name": "A Strapi developer"
